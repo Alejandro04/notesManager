@@ -1,6 +1,6 @@
 class NotesController < ApplicationController
 #  before_action :set_note, only: [:show, :update, :destroy]
-
+ layout 'admin'
   # GET /notes
   def index
     if params[:category_id] || params[:title] || params[:date] || params[:order]
@@ -32,6 +32,11 @@ class NotesController < ApplicationController
       @notes = Note.all
       render json: @notes
     end
+  end
+
+ # GET list of notes view
+  def indexview
+
   end
 
   # GET /notes/1

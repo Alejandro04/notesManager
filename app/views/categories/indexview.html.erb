@@ -2,30 +2,53 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Categorias</title>
     <script src="js/vue.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js" charset="utf-8"></script>
   </head>
   <body>
-   oeeei aa
+    <div class="container" id="content">
+        <h2 style="font-weight: 100">Categorias</h2>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Fecha de Creacion</th>
+                <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr v-for="cat in categories">
+                <td>{{cat.id}}</td>
+                <td>{{cat.name}}</td>
+                <td>{{cat.description}}</td>
+                <td>{{cat.created_at}}</td>
+                <td><a href="#" class="btn btn-info">Editar</a><a href="#" class="btn btn-danger">Eliminar</a></td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+    </div>
   </body>
-
-     <% @categories.each do |cat| %>
-        <%= cat.name %>
-    <% end %>
-
   <script type="text/javascript">
       var vm = new Vue({
       el: '#content',
       created: function() {
-          this.saludo();
+          this.getCategories();
       },
       data: {
           categories: [],
       },
       methods:{
-          saludo: function(){
-            alert("saludo")
-          },
+          getCategories: function(){
+            axios.get('/categories').then(response => {
+             this.categories = response.data
+             console.log(response)
+           })
+        },
       }
     });
   </script>

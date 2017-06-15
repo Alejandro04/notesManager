@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Notas</title>
+    <script src="js/vue.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="container" id="content">
+        <h2 style="font-weight: 100">Notas</h2>
+
+        <div class="row">
+          <h4 style="font-weight: 100; text-align: center">Filtros</h4>
+          <div class="col-md-3">
+            <input type="text" class="form-control" v-model="title" placeholder="Titulo">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" v-model="date" placeholder="Fecha">
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control" v-model="category" placeholder="Categoria">
+          </div>
+          <div class="col-md-3">
+            <select class="form-control" v-model="order">
+              <option value="ASC">Ascendente</option>
+              <option value="DESC">Descendente</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <a href="#" class="btn btn-info" style="width: 100%; margin-top: 20px; margin-bottom: 50px">FILTRAR</a>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped table-responsive">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Titulo</th>
+                <th>Descripcion</th>
+                <th>Categoria</th>
+                <th>Fecha Creacion</th>
+                <th>Acciones</th>
+               </tr>
+            </thead>
+            <tbody>
+               <tr v-for="not in notes">
+                <td>{{not.id}}</td>
+                <td>{{not.title}}</td>
+                <td>{{not.description}}</td>
+                <td>{{not.category_id}}</td>
+                <td>{{not.created_at}}</td>
+                <td><a href="#" class="btn btn-info">Editar</a><a href="#" class="btn btn-danger">Eliminar</a></td>
+                </tr>
+              </tbody>
+          </table>
+        </div>
+    </div>
+  </body>
+  <script type="text/javascript">
+      var vm = new Vue({
+      el: '#content',
+      created: function() {
+          this.getNotes();
+      },
+      data: {
+          notes: [],
+          title: "",
+          date: "",
+          category: "",
+          order: "",
+      },
+      methods:{
+          getNotes: function(){
+            axios.get('/notes').then(response => {
+             this.notes = response.data
+           })
+        },
+      }
+    });
+  </script>
+
+</html>

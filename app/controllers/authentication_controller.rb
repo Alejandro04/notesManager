@@ -7,6 +7,11 @@ class AuthenticationController < ApplicationController
   end
 
   def authenticate
+
+  #  x =  params[:email]
+#    y = params[:password]
+  #  render json: { pararms: y }
+
     command = AuthenticateUser.call(params[:email], params[:password])
 
     if command.success?
@@ -21,6 +26,7 @@ class AuthenticationController < ApplicationController
     auth_token = AuthenticateUser.new(user.email, user.password).call
     render json: {user: auth_token }
   end
+
 
   # we used strong parameters for the validation of params
   private

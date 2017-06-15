@@ -9,8 +9,9 @@ class CategoriesController < ApplicationController
     render json: @categories
   end
 
+ # GET list of categories view
   def indexview
-    @categories = Category.all
+
   end
 
   # GET /categories/1
