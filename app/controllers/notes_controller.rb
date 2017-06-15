@@ -3,35 +3,23 @@ class NotesController < ApplicationController
  layout 'admin'
   # GET /notes
   def index
-    if params[:category_id] != nil && params[:category_id] != ""
-      @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
-      render json: @notes
-=begin
-    if params[:category_id] || params[:title] || params[:date] || params[:order]
-      if params[:category_id]
+    if params[:category_id] != nil || params[:title] != nil || params[:date] != nil || params[:order] != nil
+      if params[:category_id] != nil && params[:category_id] != ""
         @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
         render json: @notes
       end
-      if params[:order] != nil
-        if params[:title] && params[:order]
-          @notes = Note.find_by_sql("Select * from NOTES WHERE title = '#{params[:title]}' ORDER BY created_at #{params[:order]}")
-          render json: @notes
-        end
-        if params[:date] && params[:order]
-          @notes = Note.find_by_sql("Select * from NOTES WHERE created_at = '#{params[:date]}' ORDER BY created_at #{params[:order]}")
-          render json: @notes
-        end
-        if params[:title] == nil && params[:date] == nil
-          render json: "Por favor seleccione el titulo o la fecha"
-        end
+      if params[:order] != nil && params[:order] != ""
+        @notes = Note.find_by_sql("Select * from NOTES ORDER BY created_at #{params[:order]}")
+        render json: @notes
       end
-      if params[:title] != nil && params[:order] == nil
-        render json: "Por favor seleccione el orden"
+      if params[:date] != nil && params[:date] != ""
+        @notes = Note.find_by_sql("Select * from NOTES WHERE created_at = '#{params[:date]}'")
+        render json: @notes
       end
-      if params[:date] != nil && params[:order] == nil
-        render json: "Por favor seleccione el orden"
+      if params[:title] != nil && params[:title] != ""
+        @notes = Note.find_by_sql("Select * from NOTES WHERE title = '#{params[:title]}'")
+        render json: @notes
       end
-=end
     else
       @notes = Note.all
       render json: @notes
