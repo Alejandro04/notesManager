@@ -3,15 +3,31 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    if params[:category_id] || params[:title]
+    if params[:category_id] || params[:title] || params[:date] || params[:order]
       if params[:category_id]
         @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
         render json: @notes
       end
-      if params[:title]
-        @notes = Note.find_by title: params[:title]
-        render json: @notes
+      if params[:order] != nil
+        if params[:title] && params[:order]
+          @notes = Note.find_by_sql("Select * from NOTES WHERE title = '#{params[:title]}' ORDER BY created_at #{params[:order]}")
+          render json: @notes
+        end
+        if params[:date] && params[:order]
+          @notes = Note.find_by_sql("Select * from NOTES WHERE created_at = '#{params[:date]}' ORDER BY created_at #{params[:order]}")
+          render json: @notes
+        end
+        if params[:title] == nil && params[:date] == nil
+          render json: "Por favor seleccione el titulo o la fecha"
+        end
       end
+      if params[:title] != nil && params[:order] == nil
+        render json: "Por favor seleccione el orden"
+      end
+      if params[:date] != nil && params[:order] == nil
+        render json: "Por favor seleccione el orden"
+      end
+
     else
       @notes = Note.all
       render json: @notes
