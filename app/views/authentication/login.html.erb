@@ -29,6 +29,12 @@
                     <h2>notesManager</h2>
                   </div>
 
+                     <template v-if="template_error">
+                       <div class="alert alert-danger">
+                         <strong>Error!</strong> Email o password invalidos, intente de nuevo.
+                       </div>
+                    </template>
+
                     <form class="form-horizontal" role="form" method="POST" action="login">
 
                         <div class="form-group">
@@ -85,6 +91,7 @@ var vm = new Vue({
           token: "",
           email: "",
           password: "",
+          template_error: false
       },
       methods:{
           saludo: function(){
@@ -103,8 +110,7 @@ var vm = new Vue({
               window.location = '/categoriesview'
             })
             .catch(response => {
-              console.log(error);
-              alert("no")
+              this.template_error = true
             });
           },
       }
