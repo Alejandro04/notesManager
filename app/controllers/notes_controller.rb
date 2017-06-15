@@ -3,6 +3,10 @@ class NotesController < ApplicationController
  layout 'admin'
   # GET /notes
   def index
+    if params[:category_id] != nil && params[:category_id] != ""
+      @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
+      render json: @notes
+=begin
     if params[:category_id] || params[:title] || params[:date] || params[:order]
       if params[:category_id]
         @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
@@ -27,7 +31,7 @@ class NotesController < ApplicationController
       if params[:date] != nil && params[:order] == nil
         render json: "Por favor seleccione el orden"
       end
-
+=end
     else
       @notes = Note.all
       render json: @notes
