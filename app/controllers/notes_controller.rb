@@ -3,9 +3,19 @@ class NotesController < ApplicationController
 
   # GET /notes
   def index
-    @notes = Note.all
-
-    render json: @notes
+    if params[:category_id] || params[:title]
+      if params[:category_id]
+        @notes = Note.find_by_sql("Select * from NOTES WHERE category_id = #{params[:category_id]}")
+        render json: @notes
+      end
+      if params[:title]
+        @notes = Note.find_by title: params[:title]
+        render json: @notes
+      end
+    else
+      @notes = Note.all
+      render json: @notes
+    end
   end
 
   # GET /notes/1
