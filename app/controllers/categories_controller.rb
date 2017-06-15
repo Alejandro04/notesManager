@@ -1,11 +1,16 @@
 class CategoriesController < ApplicationController
   #before_action :set_category, only: [:show, :update, :destroy]
+  layout 'admin'
 
   # GET /categories
   def index
     @categories = Category.all
 
     render json: @categories
+  end
+
+  def indexview
+    @categories = Category.all
   end
 
   # GET /categories/1

@@ -2,6 +2,10 @@ class AuthenticationController < ApplicationController
   before_action :authenticate_request, only: [:authenticate, :create]
   skip_before_action :authenticate_request
 
+  def login
+
+  end
+
   def authenticate
     command = AuthenticateUser.call(params[:email], params[:password])
 

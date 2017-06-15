@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="js/vue.js" charset="utf-8"></script>
+  </head>
+  <body>
+   oeeei aa
+  </body>
+
+     <% @categories.each do |cat| %>
+        <%= cat.name %>
+    <% end %>
+
+  <script type="text/javascript">
+      var vm = new Vue({
+      el: '#content',
+      created: function() {
+          this.saludo();
+      },
+      data: {
+          categories: [],
+      },
+      methods:{
+          saludo: function(){
+            alert("saludo")
+          },
+      }
+    });
+  </script>
+
+</html>

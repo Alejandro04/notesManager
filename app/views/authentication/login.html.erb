@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>notesManager</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/bootstrap.css">
+
+  <!-- iCheck -->
+
+<style media="screen">
+  html {
+  background: url(images/wall.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+  body{
+    background: transparent !important;
+  }
+  .form-control{
+    color: black !important;
+    background: white !important;
+  }
+  .panel-body{
+    background-color: rgba(0, 0, 0, 0.38);
+  }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2" style="margin-top: 40px">
+            <div class="panel panel-default" style="background: transparent; border-color: transparent; color: white">
+                <div class="panel-body">
+
+                  <div class="row" style="text-align:center; margin-top: 60px; margin-bottom: 20px">
+                    <h2>notesManager</h2>
+                  </div>
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="email" class="form-control" name="email" placeholder="Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="password" class="form-control" name="password" placeholder="Password">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-5">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-btn fa-sign-in"></i> Iniciar Sesion
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-5">
+                                <div class="checkbox">
+                                    <label style="color: white; margin-left: 20px">
+                                        <input type="checkbox" name="remember"> Recordar
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-md-12 col-md-offset-5" style="margin-top: 5px;">
+                              <a href="{{ url('/register') }}" class="alogin" style="margin-left: 10px">Registrese aqui</a>
+                          </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+  </body>
+</html>
