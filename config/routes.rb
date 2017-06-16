@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   get 'categoriesview', to: 'categories#indexview'
   get 'categoriesnew', to: 'categories#new'
   get 'notesview', to: 'notes#indexview'
+  get 'categoriescreate', to: 'categories#create'
+  get 'notesnew', to: 'notes#new'
+  get 'notescreate', to: 'notes#create'
+
 end

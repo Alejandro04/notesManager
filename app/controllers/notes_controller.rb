@@ -31,6 +31,11 @@ class NotesController < ApplicationController
 
   end
 
+# GET form to category register
+  def new
+
+  end
+
   # GET /notes/1
   def show
     render json: @note
@@ -38,6 +43,7 @@ class NotesController < ApplicationController
 
   # POST /notes
   def create
+    params[:user_id] = 1
     @note = Note.new(:title => params[:title], :description => params[:description], :category_id => params[:category_id], :user_id => params[:user_id] )
 
     if @note.save

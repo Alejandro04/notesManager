@@ -26,8 +26,9 @@ class CategoriesController < ApplicationController
 
   # POST /categories
   def create
+    #Usuario en session para guardarlo
+    params[:user_id] = 1
     @category = Category.new(:name => params[:name], :description => params[:description], :user_id => params[:user_id])
-
     if @category.save
       render json: @category, status: :created, location: @category
     else

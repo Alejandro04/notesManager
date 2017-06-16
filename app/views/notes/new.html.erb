@@ -2,17 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Categorias</title>
+    <title>Notas</title>
     <script src="js/vue.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container" id="content">
-        <h2 style="font-weight: 100">Registro de Categoria</h2>
+        <h2 style="font-weight: 100">Registro de Nota</h2>
 
         <template v-if="template_success">
           <div class="alert alert-success">
-            <strong>Categoria Guardada</strong>
+            <strong>Nota Guardada</strong>
           </div>
        </template>
 
@@ -20,13 +20,24 @@
 
           <div class="form-group">
               <div class="col-md-12">
-                  <input type="text" class="form-control" name="name" placeholder="Nombre" v-model="name">
+                  <input type="text" class="form-control" name="title" placeholder="Nombre" v-model="title">
               </div>
           </div>
 
             <div class="form-group">
                 <div class="col-md-12">
                     <input type="text" class="form-control" name="descripcion" placeholder="Descripcion" v-model="description">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                  <select class="form-control" v-model="category">
+                     <option value="">Seleccione</option>
+                     <option v-for="item in categories" :value="item.id">
+                       {{ item.name }}
+                     </option>
+                   </select>
                 </div>
             </div>
 
@@ -45,23 +56,34 @@
   <script type="text/javascript">
       var vm = new Vue({
       el: '#content',
+      created: function() {
+          this.getCategories();
+      },
       data: {
-          name: "",
+          title: "",
           description: "",
+          category: "",
+          categories: [],
           template_success: false,
       },
       methods:{
+        getCategories: function(){
+          axios.get('/categories').then(response => {
+           this.categories = response.data
+          })
+         },
         //change endpoint to get for save categories
         register: function(){
-          axios.get('/categoriescreate', {
+          axios.get('/notescreate', {
             params: {
-              name: this.name,
+              title: this.title,
               description: this.description,
+              category_id: this.category
             }
           })
           .then(response => {
             this.template_success = true
-            this.name = ""
+            this.title = ""
             this.description = ""
           })
           .catch(response => {
