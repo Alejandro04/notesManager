@@ -4,7 +4,7 @@ An notes management with Ruby on Rails 5.
 
 Demo: [https://guarded-retreat-81028.herokuapp.com/]
 
-## Important: Sorry, I do not know what is the problem of registration and obtaining the token in heroku, so to accede enter here
+## Important: Sorry, I do not know what is the problem of registration and obtaining the token in heroku, so to enter here
 https://guarded-retreat-81028.herokuapp.com/categoriesview
 
 ## Description
