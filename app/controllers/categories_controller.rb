@@ -14,6 +14,11 @@ class CategoriesController < ApplicationController
 
   end
 
+ # GET form to category register
+  def new
+
+  end
+
   # GET /categories/1
   def show
     render json: @category

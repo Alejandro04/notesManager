@@ -2,20 +2,17 @@ class AuthenticationController < ApplicationController
   before_action :authenticate_request, only: [:authenticate, :create]
   skip_before_action :authenticate_request
 
+ # GET form to user login
   def login
 
   end
 
+ # GET form to user register
   def register
 
   end
 
   def authenticate
-
-  #  x =  params[:email]
-#    y = params[:password]
-  #  render json: { pararms: y }
-
     command = AuthenticateUser.call(params[:email], params[:password])
 
     if command.success?

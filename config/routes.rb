@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   get 'logout', to: 'authentication#destroy'
   get 'signup', to: 'authentication#create'
   get 'categoriesview', to: 'categories#indexview'
+  get 'categoriesnew', to: 'categories#new'
   get 'notesview', to: 'notes#indexview'
 end
