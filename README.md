@@ -4,10 +4,13 @@ An notes management with Ruby on Rails 5.
 
 Demo: [https://guarded-retreat-81028.herokuapp.com/]
 
+## Important: Sorry, I do not know what is the problem of registration and obtaining the token in heroku, so to accede enter here
+https://guarded-retreat-81028.herokuapp.com/categoriesview
+
 ## Description
 It uses rails 5 with the flag --api and integrates with vue.js 2 for the handling of the views.
 It was necessary to call in application_controller.rb the ApplicationController <ActionController :: Base to be able to serve html
-There are problems in the application (it does not have a method to close session and the use of the token is not so efficient). We use Postgresql.
+There are problems in the application (It does not have a method to close session and the use of the token is not so efficient, and still does not edit or delete records) We use Postgresql.
 
 ## Installation Instructions
 
