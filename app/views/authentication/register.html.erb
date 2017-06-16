@@ -27,15 +27,23 @@
 
                   <div class="row" style="text-align:center; margin-top: 60px; margin-bottom: 20px">
                     <h2>notesManager</h2>
+                    <p>Registro</p>
                   </div>
 
                      <template v-if="template_error">
                        <div class="alert alert-danger">
-                         <strong>Error!</strong> Email o password invalidos, intente de nuevo.
+                         <strong>Error!</strong> Los passwords deben ser iguales
                        </div>
                     </template>
 
-                    <form class="form-horizontal" role="form" method="POST" action="login">
+                    <form class="form-horizontal" role="form" method="POST">
+
+                      <div class="form-group">
+                          <div class="col-md-12">
+                              <input type="email" class="form-control" name="name" placeholder="Nombre" v-model="name">
+                          </div>
+                      </div>
+
 
                         <div class="form-group">
                             <div class="col-md-12">
@@ -50,26 +58,23 @@
                         </div>
 
                         <div class="form-group">
+                            <div class="col-md-12">
+                                <input type="password" class="form-control" name="password_repeat" placeholder="Repite el Password" v-model="password_repeat">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
                             <div class="col-md-6 col-md-offset-5">
-                                <a  class="btn btn-primary" @click="login">
-                                    <i class="fa fa-btn fa-sign-in"></i> Iniciar Sesion
+                                <a  class="btn btn-primary" @click="register">
+                                    <i class="fa fa-btn fa-sign-in"></i> Registrese
                                 </a>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-5">
-                                <div class="checkbox">
-                                    <label style="color: white; margin-left: 20px">
-                                        <input type="checkbox" name="remember"> Recordar
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
                           <div class="col-md-12 col-md-offset-5" style="margin-top: 5px;">
-                              <a href="/register" class="alogin" style="margin-left: 10px">Registrese aqui</a>
+                              <a href="/" class="alogin" style="margin-left: 10px">Iniciar Sesion</a>
                           </div>
                         </div>
 
@@ -84,30 +89,32 @@
 <script>
 var vm = new Vue({
       el: '#content',
-      created: function() {
-          this.saludo();
-      },
       data: {
-          token: "",
+          name: "",
           email: "",
           password: "",
+          password_repeat: "",
           template_error: false
       },
       methods:{
-          login: function(){
-            axios.get('/login', {
+          register: function(){
+            axios.get('/signup', {
               params: {
+                name: this.name,
                 email: this.email,
                 password: this.password,
+                password_repeat: this.password_repeat
               }
             })
             .then(response => {
-              console.log(response)
-              this.token = response.data.auth_token
-              window.location = '/categoriesview'
+              if (response.data.error != null){
+                this.template_error = true
+              } else {
+                window.location = '/categoriesview'
+              }
             })
             .catch(response => {
-              this.template_error = true
+              console.log("error")
             });
           },
       }

@@ -6,6 +6,10 @@ class AuthenticationController < ApplicationController
 
   end
 
+  def register
+
+  end
+
   def authenticate
 
   #  x =  params[:email]
@@ -22,9 +26,16 @@ class AuthenticationController < ApplicationController
   end
 
   def create
-    user = User.create!(user_params)
-    auth_token = AuthenticateUser.new(user.email, user.password).call
-    render json: {user: auth_token }
+    passone = params[:password]
+    passtwo = params[:password_repeat]
+
+    if(passone == passtwo)
+      user = User.create!(user_params)
+      auth_token = AuthenticateUser.new(user.email, user.password).call
+      render json: {user: auth_token }
+    else
+     render json: { error: "Los passwords deben ser iguales "}
+    end
   end
 
 
