@@ -22,7 +22,7 @@ There are problems in the application (it does not have a method to close sessio
 * Download this repo, and unzip it
 * ``` cd notesManager``` to cd into the folder
 * ``` bundle ```
-* ``` rails db:migrate db:create ```
+* ``` rails db:create ```
 * ``` rails db:migrate ```
 * ``` RUN: rails s ```
 
