@@ -12,27 +12,40 @@
 
         <div class="row">
           <h4 style="font-weight: 100; text-align: center">Filtros</h4>
-          <div class="col-md-3">
-            <input type="text" class="form-control" v-model="title" placeholder="Titulo">
-          </div>
-          <div class="col-md-3">
-            <input type="text" class="form-control" v-model="date" placeholder="Fecha">
-          </div>
-          <div class="col-md-3">
-            <select class="form-control" v-model="category">
-               <option value="">Seleccione</option>
-               <option v-for="item in categories" :value="item.id">
-                 {{ item.name }}
-               </option>
+
+          <div class="col-md-12">
+            <h5 style="font-weight: 100">Criterio de filtro</h5>
+            <select class="form-control" v-model="option" @change="selectOption" style="margin-bottom: 20px">
+               <option value="titulo">Titulo</option>
+               <option value="fecha">Fecha</option>
+               <option value="categoria">Categoria</option>
+               <option value="orden">Orden</option>
              </select>
           </div>
-          <div class="col-md-3">
-            <select class="form-control" v-model="order">
-              <option value="ASC">Ascendente</option>
-              <option value="DESC">Descendente</option>
-            </select>
+
+          <div class="col-md-12">
+            <template v-if="template_title">
+              <input type="text" class="form-control" v-model="title" placeholder="Titulo" @change="disabledItems">
+            </template>
+            <template v-if="template_date">
+              <input type="text" class="form-control" v-model="date" placeholder="Fecha">
+            </template>
+            <template v-if="template_category">
+              <select class="form-control" v-model="category">
+                 <option value="">Seleccione</option>
+                 <option v-for="item in categories" :value="item.id">
+                   {{ item.name }}
+                 </option>
+               </select>
+            </template>
+             <template v-if="template_order">
+               <select class="form-control" v-model="order">
+                 <option value="ASC">Ascendente</option>
+                 <option value="DESC">Descendente</option>
+               </select>
+             </template>
           </div>
-        </div>
+
         <div class="row">
           <div class="col-md-12">
               <a class="btn btn-info" style="width: 100%; margin-top: 20px; margin-bottom: 50px" @click="filtrar">FILTRAR</a>
@@ -79,17 +92,60 @@
           category: "",
           order: "",
           categories: [],
+          template_category: false,
+          template_date: false,
+          template_title: false,
+          template_order: false,
+          options: ""
       },
       methods:{
         getCategories: function(){
           axios.get('/categories').then(response => {
            this.categories = response.data
           })
-        },
+         },
           getNotes: function(){
             axios.get('/notes').then(response => {
              this.notes = response.data
             })
+          },
+          selectOption: function(e){
+            if (e.target.value == "titulo"){
+              this.template_title = true,
+              this.template_category = false,
+              this.template_date = false,
+              this.template_order = false,
+              this.date = "",
+              this.category = "",
+              this.order = ""
+            }
+            if (e.target.value == "categoria"){
+              this.template_title = false,
+              this.template_category = true,
+              this.template_date = false,
+              this.template_order = false,
+              this.date = "",
+              this.title = "",
+              this.order = ""
+            }
+            if (e.target.value == "fecha"){
+              this.template_title = false,
+              this.template_category = false,
+              this.template_date = true,
+              this.template_order = false,
+              this.title = "",
+              this.category = "",
+              this.order = ""
+            }
+            if (e.target.value == "orden"){
+              this.template_title = false,
+              this.template_category = false,
+              this.template_date = false,
+              this.template_order = true,
+              this.date = "",
+              this.category = "",
+              this.title = ""
+            }
           },
           filtrar: function(){
             axios.get('/notes', {
